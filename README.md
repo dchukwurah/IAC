@@ -27,3 +27,27 @@ Essentially configuration management but can be done on many instances over an e
 2. Ansible is our controller which we access via SSH. 
 3. Ansible connects to instances via SSH to do configuration management automatically Ansible as is agentless.
 4. This is the vault contained within Ansible where access keys for instances are saved in order to securely connect. 
+
+# Setting up agent/
+
+1. Connect to your EC2 instance
+ 
+2. Input the following commands...
+```
+# checks if ansible installed
+ansible --version
+ 
+#standard update/upgrade
+sudo apt update -y
+sudo apt upgrade -y
+ 
+# sets up ansible for install
+sudo apt-get install software-properties-common
+sudo apt-add-repository ppa:ansible/ansible
+ 
+# installs ansible
+sudo apt update -y
+sudo apt install ansible -y
+```
+ 
+3. Open another git bash and type `scp -i "~/.ssh/tech254.pem" ~/.ssh/tech254.pem ubuntu@<instance public DNS IP>:~/.ssh` (change to include the IP of your instance)
