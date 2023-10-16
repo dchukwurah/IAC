@@ -1,34 +1,71 @@
-# What is IAAC?
+Infrastructure as Code (IaC) and Configuration Management & Configuration Management Orchestration are two key concepts in the realm of DevOps, cloud computing, and IT operations. 
 
+The following will detail the important information about the concepts, how they are related and the steps we can take to set up Ansible to be a controller for our EC2 instances. 
 
-# What is Configuration Management Orchestration
+### **Infrastructure as Code (IaC):**
 
-# What is Infrastructure as Code
+   - **Definition**: IaC is a key DevOps practice that involves managing and provisioning computing infrastructure through machine-readable script files, rather than using physical hardware configuration or interactive configuration tools.
+   
+   - **Components**:
+     - **Code Files**: Script files are written using languages like YAML, JSON, or domain-specific languages such as Terraform.
+     - **Version Control**: These script files are often kept in version control systems like Git, allowing for tracking changes, collaboration, and rollback if necessary.
+     
+   - **Benefits**:
+     - **Automate the Deployment**: Speed up the infrastructure deployment process.
+     - **Consistency**: Ensure the infrastructure is deployed consistently and reliably.
+     - **Scalability**: Easier to scale the infrastructure as per requirements.
+     
+   - **Use Cases**: 
+     - Cloud infrastructure provisioning such as in AWS
+     - Network configuration, database configuration, and server configuration.
 
-This is the process of managing and provisioning infrastructure using code.
+### **Configuration Management Orchestration**:
 
-Managing infrastructure manually is like manually packaging boxes. Whereas this is like doing this using a machine that automatically packages.
+   - **Definition**: It refers to the coordination and management of different aspects of an application or system configuration. Orchestration in configuration management involves automating various tasks and workflows to ensure systems are configured correctly and work seamlessly together.
+   
+   - **Components**:
+     - **Automation Tools**: Tools like Ansible, Puppet, and Chef are used for orchestration.
+     - **Scripts and Playbooks**: Defines the steps and processes for configuration.
+     
+   - **Benefits**:
+     - **Coordination**: Ensures different parts of the system work together seamlessly.
+     - **Automated Workflows**: Automate repetitive tasks to ensure efficiency and accuracy.
+     
+   - **Use Cases**: 
+     - Application deployment.
+     - System configuration across multiple machines.
+     - Automating workflows and processes.
 
+### Relationship Between IaC and Configuration Management Orchestration:
 
-# What is configuration management
+- **Complementary Practices**: While IaC focuses on provisioning the underlying infrastructure, configuration management orchestration focuses on managing and coordinating the configuration of the systems and applications running on that infrastructure.
+  
+- **Interlinked Workflows**: In a typical DevOps workflow, IaC can be used to set up the necessary infrastructure, followed by configuration management orchestration to ensure systems and applications are correctly configured and integrated.
+  
+- **Unified Objective**: Both aim to automate and streamline the processes involved in infrastructure and application management, aiming for speed, reliability, and consistency in deployment and operations.
 
-This process can be part of an automation pipeline that will speeds up deployment. Ansible is a popular program used to update instances or do other processes within them like changing config files or opening ports, provided the IPs and SSH credentials. This is referred to as  **configuration management**.
+In conclusion, while IaC and configuration management orchestration may focus on different layers of the technology stack, they are intertwined practices that collectively enhance the automation and manageability of infrastructures and applications in a DevOps environment.
 
-# What is orchestration
+## Steps to install and connect on ansible
 
-Orchestration is an aspect of IaS that focusses on managing and coordinating deployment automatically in multiple different systems at once. 
+### 1. **Launch an EC2 Instance:**
 
-Essentially configuration management but can be done on many instances over an entire ASG for example.
+   - Choose an Amazon Machine Image (AMI).
+   - Choose an instance type.
+   - Configure the instance details.
+   - Add necessary storage.
+   - Add tags as necessary.
+   - Configure the security group by allowing necessary ports (like SSH).
+   - Review and launch the instance.
 
-# IAAC Diagram
-![ansiblescrsh.png](..%2F..%2FDocuments%2FDiagrams%2Fansiblescrsh.png)
+### 2. **Access the EC2 Instance:**
 
-1. This is the master node which controls and manages other nodes on the network.
-2. Ansible is our controller which we access via SSH. 
-3. Ansible connects to instances via SSH to do configuration management automatically Ansible as is agentless.
-4. This is the vault contained within Ansible where access keys for instances are saved in order to securely connect. 
+   - Connect to the EC2 instance using SSH.
+     ```bash
+     ssh -i "<name of pem file>.pem" ec2-user@your-ec2-public-ip
+     ```
 
-# Setting up agent/
+### 3. **Update the agent (EC2 Instance) and set up ansible:**
 
 1. Connect to your EC2 instance
  
@@ -49,7 +86,41 @@ sudo apt-add-repository ppa:ansible/ansible
 sudo apt update -y
 sudo apt install ansible -y
 ```
- 
-3. To Copy over the files for identification we need to use the SCP command, Open another git bash and type `scp -i "~/.ssh/tech254.pem" ~/.ssh/tech254.pem ubuntu@<instance public DNS IP>:~/.ssh` (change to include the IP of your instance)
-4. Check you have successfully copied the files by going to the .ssh files and ls
-5. Chmod 400 file to ensure you can run it in the respective instance
+
+### 5. **Configuration and Inventory Setup:**
+
+   - Create or modify the Ansible configuration file 
+
+### 6. **SSH Key Pair Setup:**
+
+For identification 
+Open a gitbash terminal and cd into the .ssh folder and copy over the pem file into the instance 
+Using the SCP command, type `scp -i "~/.ssh/tech254.pem" ~/.ssh/tech254.pem ubuntu@<instance public DNS IP>:~/.ssh` (change to include the IP of the instance)
+
+### Note:
+- Check you have successfully copied the files by going to the .ssh files and ls 
+- Chmod 400 file to ensure you can run it in the respective instance
+- Ensure that the EC2 instances you aim to manage with Ansible have SSH and other necessary ports open.
+- Adjust the security groups and network ACLs as necessary to allow connectivity between the Ansible controller and the target hosts.
+
+
+Managing infrastructure manually is like manually packaging boxes. Whereas this is like doing this using a machine that automatically packages.
+
+
+# What is configuration management
+
+This process can be part of an automation pipeline that will speeds up deployment. Ansible is a popular program used to update instances or do other processes within them like changing config files or opening ports, provided the IPs and SSH credentials. This is referred to as  **configuration management**.
+
+# What is orchestration
+
+Orchestration is an aspect of IaC that is on managing and coordinating deployment automatically in multiple different systems at once. 
+
+Essentially configuration management is like one instrument but orchestration can be done on many instances like an orchestra over an entire ASG for example.
+
+# IAC Diagram
+![ansiblescrsh.png](..%2F..%2FDocuments%2FDiagrams%2Fansiblescrsh.png)
+
+1. This is the master node which controls and manages other nodes on the network.
+2. Ansible is our controller which we access via SSH. 
+3. Ansible connects to instances via SSH to do configuration management automatically Ansible as is agentless.
+4. This is the vault contained within Ansible where access keys for instances are saved in order to securely connect. 
