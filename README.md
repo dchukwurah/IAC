@@ -50,4 +50,6 @@ sudo apt update -y
 sudo apt install ansible -y
 ```
  
-3. Open another git bash and type `scp -i "~/.ssh/tech254.pem" ~/.ssh/tech254.pem ubuntu@<instance public DNS IP>:~/.ssh` (change to include the IP of your instance)
+3. To Copy over the files for identification we need to use the SCP command, Open another git bash and type `scp -i "~/.ssh/tech254.pem" ~/.ssh/tech254.pem ubuntu@<instance public DNS IP>:~/.ssh` (change to include the IP of your instance)
+4. Check you have successfully copied the files by going to the .ssh files and ls
+5. Chmod 400 file to ensure you can run it in the respective instance
