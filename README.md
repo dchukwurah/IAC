@@ -115,9 +115,9 @@ Orchestration is an aspect of IaC that is on managing and coordinating deploymen
 Essentially configuration management is like one instrument but orchestration can be done on many instances like an orchestra over an entire ASG for example.
 
 # IAC Diagram
-![ansiblescrsh.png](..%2F..%2FDocuments%2FDiagrams%2Fansiblescrsh.png)
+![](C:\Users\ChiedozieChukwurah\Repos\IAAC\ansiblescrsh.png)
 
-1. This is the master node which controls and manages other nodes on the network.
-2. Ansible is our controller which we access via SSH. 
-3. Ansible connects to instances via SSH to do configuration management automatically Ansible as is agentless.
-4. This is the vault contained within Ansible where access keys for instances are saved in order to securely connect. 
+Our master Node is our local which controls and manages other nodes on the network.
+Ansible is our controller which we access via SSH to manage the control the others . 
+Ansible connects to both the app and DB instances via SSH to do configuration management automatically - Ansible as is agentless.
+Ansible uses vault authenticationT access keys for instances are saved in order to securely connect. 
