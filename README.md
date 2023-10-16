@@ -50,12 +50,9 @@ In conclusion, while IaC and configuration management orchestration may focus on
 
 ### 1. **Launch an EC2 Instance:**
 
-   - Choose an Amazon Machine Image (AMI).
-   - Choose an instance type.
-   - Configure the instance details.
-   - Add necessary storage.
-   - Add tags as necessary.
-   - Configure the security group by allowing necessary ports (like SSH).
+   - Choose the 'Ubuntu' Amazon Machine Image (AMI) - ami-0136ddddd07f0584f .
+   - Configure security group  and allow necessary ports such as **SSH** and **HTTP**
+   - Configure the other aspects of the AMI in the same way the app was set up or DB to allow mongo if setting up DB too
    - Review and launch the instance.
 
 ### 2. **Access the EC2 Instance:**
