@@ -50,18 +50,15 @@
     apt: pkg=nginx state=present
 # we need to ensure nginx is running/ enable
 
+To run the playbook we can run the command
+```
 sudo ansible-playbook <name of the playbook/file/yamlfile
-
-
-# Ansible Usage:
-
-We have now created our Ansible playbook for installing and running nginx. Let's now remotely run this in the app instance:
-
+```
+e.g. 
 ```
 ansible-playbook install-nginx.yml
 ```
 We can now do the same for node.js
-
 ```
 # To create a playbook to provision nodejs version 12 in web-node
 ---
