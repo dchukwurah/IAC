@@ -29,7 +29,7 @@
 
 # Creating a yaml file to do configuration management/provisioning
 
-We want a script that will go and install ngnix and node without us having to go in manually
+### We want a script that will go and install ngnix and node without us having to go in manually
 ## We can create a yaml file in the default location
 # To create a playbook to provision nginx web server in web-node
 ---
@@ -50,50 +50,8 @@ We want a script that will go and install ngnix and node without us having to go
     apt: pkg=nginx state=present
 # we need to ensure nginx is running/ enable
 
-
-
-
-
-
-
 sudo ansible-playbook <name of the playbook/file/yamlfile
 
-
-1. Start by creating a YAML file for our App instance provision file:
-
-```
-sudo nano install-nginx.yml
-```
-
-2. Create a "playbook" to provision nginx web server in the web node:
-
-```
-# Create a playbook to provision nginx web server in the web node
----
-# starts with three dashes.
-
-# where do you want to install or run this playbook?
-- hosts: web
-
-
-# find the facts (see the logs) - optional
-  gather_facts: yes
-
-
-# provide admin access to this playbook - use sudo
-  become: true
-
-
-# provide the actual instructions - install nginx
-  tasks:
-  - name: provision/install/configure Nginx
-    apt: pkg=nginx state=present
-
-
-# ensure nginx is running/enabled
-```
-
-NOTE: YAML files traditionally (although no longer required) start with the three dashes at the top: "---". This is no longer needed, but can still be used.
 
 # Ansible Usage:
 
@@ -102,18 +60,51 @@ We have now created our Ansible playbook for installing and running nginx. Let's
 ```
 ansible-playbook install-nginx.yml
 ```
-
-If it successful, we should see the following:
+We can now do the same for node.js
 
 ```
-PLAY [web] ********************************************************************************************************************************************************************************************************
+# To create a playbook to provision nodejs version 12 in web-node
+---
+# yaml files starts with three dashes
 
-TASK [Gathering Facts] ********************************************************************************************************************************************************************************************
-ok: [ec2-instance]
+# where do you want to install or run this playbook?
+- hosts: web
 
-TASK [provision/install/configure Nginx] **************************************************************************************************************************************************************************
-changed: [ec2-instance]
+# find the facts (see the logs) - optional
+  gather_facts: yes
 
-PLAY RECAP ********************************************************************************************************************************************************************************************************
-ec2-instance               : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+# provide admin access(permissions) to this playbook
+  become: true
+
+# provide the actual instructions - install nodejs version 12
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+    - name: Install Node.js dependencies
+      apt:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - curl
+        - software-properties-common
+
+    - name: Install the gpg key for nodejs LTS
+      apt_key:
+       url: "https://deb.nodesource.com/gpgkey/nodesource.gpg.key"
+       state: present
+
+    - name: Add NodeSource repository
+      apt_repository:
+        repo: "deb https://deb.nodesource.com/node_12.x {{ ansible_distribution_release }} main"
+        state: present
+        update_cache: yes
+        filename: nodesource
+
+    - name: Install Node.js
+      apt:
+        name: nodejs
+        state: present
+
 ```
