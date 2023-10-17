@@ -30,7 +30,9 @@
 # Creating a yaml file to do configuration management/provisioning
 
 ### We want a script that will go and install ngnix and node without us having to go in manually
-## We can create a yaml file in the default location
+### We can create a yaml file in the default location
+
+```
 # To create a playbook to provision nginx web server in web-node
 ---
 # yaml files starts with three dashes
@@ -48,8 +50,7 @@
   tasks:
   - name: provision/install/configure Nginx
     apt: pkg=nginx state=present
-# we need to ensure nginx is running/ enable
-
+ ```
 To run the playbook we can run the command
 ```
 sudo ansible-playbook <name of the playbook/file/yamlfile
