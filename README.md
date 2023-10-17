@@ -115,6 +115,7 @@ Orchestration is an aspect of IaC that is on managing and coordinating deploymen
 Essentially configuration management is like one instrument but orchestration can be done on many instances like an orchestra over an entire ASG for example.
 
 # IAC Diagram
+
 ![](C:\Users\ChiedozieChukwurah\Repos\IAAC\ansiblescrsh.png)
 
 Our master Node is our local which controls and manages other nodes on the network.
