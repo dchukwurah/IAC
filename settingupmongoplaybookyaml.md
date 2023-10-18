@@ -1,5 +1,8 @@
-# we need to set up a playbook to installm mongo into our ec2 instance
-# everything will happen in the ansible controller
+## Playbook for MongoDB Configuration
+
+#### Ansible needs to be able to do all of our configuration management - not necessarily launch things, as a devops engineer we need to know when to automate and when not to.
+#### We need to be able to set up a playbook to install mongo into our ec2 instance, everything will happen through the ansible controller
+#### Our playbook should be able to migrate, backup and configure data.
 
 
 # this playbook is to set up mongodb in the ec2
@@ -70,3 +73,22 @@
         path: /home/ubuntu/.bashrc
         line: 'export DB_HOST1=mongodb://52.214.113.152'
 ```
+---
+#### Another example
+---
+ 
+- hosts: db
+  gather_facts: yes
+  become: true
+ 
+  tasks:
+    - name: set up mongodb in db ec2
+      apt: pkg=mongodb state=present
+ 
+    - name: bindip
+      lineinfile:
+        path: /etc/mongodb.conf
+        regexp: '^bind_ip = 127\.0\.0\.1'
+        line: 'bind_ip = 0.0.0.0'
+
+# Orchestration with Terraform
