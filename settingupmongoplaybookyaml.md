@@ -3,16 +3,15 @@
 
 
 # this playbook is to set up mongodb in the ec2
----
+```yaml
 # agent node name/ip
-
 - hosts: db
 
 # gather facts(logs)
   gather_facts: yes
 
 # provide admin access
-  become:true
+  become: true
 
 # provide instructions
   tasks:
@@ -20,4 +19,23 @@
     apt: pkg=mongodb state=present
 
 # ensure db is in a running state
+```
 
+# this playbook is to set the bindip in mongodb
+
+---
+# agent node name/ip
+- hosts: db
+
+# gather facts(logs)
+  gather_facts: yes
+
+# provide admin access
+  become: true
+
+# provide instructions
+  tasks:
+  - name: Stop MongoDB
+    ansible.builtin.systemd:
+      name: mongodb
+      state: stopped
