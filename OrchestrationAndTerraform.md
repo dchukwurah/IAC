@@ -8,7 +8,7 @@ Terraform uses HashiCorp Configuration Language (HCL) to define the infrastructu
 It maintains a state of the infrastructure, allowing for efficient change planning and application, as well as error detection and resolution.
 
 ## **Who Created It?**
-   - Terraform was created by HashiCorp, a company known for producing tools that focus on DevOps workflows and cloud infrastructure automation. HashiCorp was founded by Mitchell Hashimoto and Armon Dadgar in 2012.
+   - Terraform was created by HashiCorp and used by many companies such as netflix to deploy and provision software
 
 ### 2. **Why Is It Needed?**
    - Terraform addresses the need for a consistent and unified workflow to provision and manage infrastructure across various cloud providers and on-premises environments.
@@ -28,4 +28,4 @@ Terraform, created by HashiCorp, is a powerful tool designed to meet the modern-
 Its inception in 2014 marked a significant advancement in the realm of Infrastructure as Code (IaC), providing a unified way to manage and provision infrastructure across various platforms and services. Its global applicability and continuous evolution underscore its pivotal role in the DevOps and cloud infrastructure landscape.
 
 ### How do we use Terraform
-Terraform main file (main.tf) is our central point, similar to 
+Terraform main file (main.tf) is our central point for running our code and we can use commands to run it in our terminal
